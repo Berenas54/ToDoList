@@ -1,19 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import {FilterValuesType, TaskType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskID: number) => void
+    addTask: (title: string) => void
+    removeTask: (taskID: string) => void
     changeFilter: (newFilterValue: FilterValuesType) => void
 }
 
 export function TodoList(props: PropsType) {
+    const [title, setTitle] = useState<string>(" ")
+    const addTask = () => {
+        const trimmedTitle = title.trim()
+        if(trimmedTitle !== ""){
+            props.addTask(trimmedTitle)
+            setTitle('')
+        }
+    }
     return (<div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input value={title} onChange={(e) => {
+                    setTitle(e.currentTarget.value)
+                }}
+                onKeyPress={(e)=> {if (e.key === "Enter")addTask()}}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul> {
                 props.tasks.map(task => <li key={task.id}><input type="checkbox" checked={task.isDone}/>
