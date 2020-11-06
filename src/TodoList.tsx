@@ -40,7 +40,8 @@ export function TodoList(props: PropsType) {
             </div>
             <ul> {
                 props.tasks.map(task =>
-                    <li key={task.id}>
+                    <li className={task.isDone ? "is-done": ""} key={task.id}>
+
                         <input onChange={(e) => {
                             props.changeTaskStatus(task.id, e.currentTarget.checked)
                         }} type="checkbox" checked={task.isDone}/>
