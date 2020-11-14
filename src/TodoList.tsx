@@ -10,7 +10,7 @@ type PropsType = {
     removeTask: (taskID: string, toDoListID: string) => void
     changeFilter: (newFilterValue: FilterValuesType, toDoListID: string) => void
     changeTaskStatus: (taskID: string, isDone: boolean, toDoListID: string) => void
-    removeToDoList:(toDoListID: string)=> void
+    removeToDoList: (toDoListID: string) => void
 }
 
 export function TodoList(props: PropsType) {
@@ -29,7 +29,7 @@ export function TodoList(props: PropsType) {
         return <li className={task.isDone ? "is-done" : ""} key={task.id}>
             <input onChange={changeTaskStatus} type="checkbox" checked={task.isDone}/>
             <span>{task.title}</span>
-            <button onClick={removeTask}> X</button>
+            <button onClick={removeTask}> &#xD7;</button>
         </li>
     })
 
@@ -60,11 +60,13 @@ export function TodoList(props: PropsType) {
 
 
     return (<div>
-            <h3>{props.title} <button onClick={()=>props.removeToDoList(props.id)}>X</button></h3>
+            <h3>{props.title}
+                <button onClick={() => props.removeToDoList(props.id)}>&#xD7;</button>
+            </h3>
             <div>
                 <input value={title} className={error ? "error" : ""} onChange={onNewTitleChangeHandler}
                        onKeyPress={onKeyPressHandler}/>
-                 <button onClick={addTask}>+</button>
+                <button onClick={addTask}>+</button>
                 {error && <div className={"error-message"}>{error}</div>}
             </div>
             <ul>
