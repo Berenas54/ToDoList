@@ -20,7 +20,6 @@ export type ChangeToDoListFilterAT = {
     id: string
 }
 
-
 type ActionType = RemoveToDoListAT | AddToDoListAT | ChangeToDoListAT | ChangeToDoListFilterAT
 
 
