@@ -7,7 +7,7 @@ test('user reducer should increment only age', () => {
 
     expect(endState.age).toBe(21);
     expect(endState.childrenCount).toBe(2);
-    expect(endState.name).toBe("Dimych ");
+    expect(endState.name).toBe("Dimych");
 
 });
 

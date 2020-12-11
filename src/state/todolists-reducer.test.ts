@@ -1,9 +1,8 @@
 import {
-    AddToDoListAT,
-    ChangeToDoListAT,
-    ChangeToDoListFilterAT,
-    RemoveToDoListAT,
-    toDoListsReducer
+    ChangeToDoListTitleAC,
+    RemoveToDoListAC,
+    toDoListsReducer,
+    AddToDoListAC, ChangeToDoListFilterAC
 } from './todolists-reducer';
 import {v1} from 'uuid';
 import {FilterValuesType, ToDoListType} from '../App';
@@ -71,19 +70,4 @@ test('correct filter of todolist should be changed', () => {
     expect(endState[1].filter).toBe(newFilter);
 });
 
-export const RemoveToDoListAC = (toDoListID: string): RemoveToDoListAT => (
-    {type: "REMOVE-TODOLIST", id: toDoListID}
-)
-export const AddToDoListAC = (newTitle: string): AddToDoListAT => (
-    {type: "ADD-TODOLIST", title: newTitle}
-)
-export const ChangeToDoListTitleAC = (title: string, id: string): ChangeToDoListAT => ({
-    type: "CHANGE-TODOLIST-TITLE",
-    title: title,
-    id: id
-})
-export const ChangeToDoListFilterAC = (filter: FilterValuesType, id: string): ChangeToDoListFilterAT => ({
-    type: "CHANGE-TODOLIST-FILTER",
-    id: id,
-    filter: filter
-})
+
