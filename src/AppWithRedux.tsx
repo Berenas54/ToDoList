@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer, useState} from 'react'
+import React, {useCallback} from 'react'
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
@@ -9,10 +9,9 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    removeTodolistAC
 } from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 
@@ -74,12 +73,12 @@ function AppWithRedux() {
         dispatch(action);
     }, [dispatch]);
 
-    const changeTodolistTitle = useCallback( (id: string, title: string) => {
+    const changeTodolistTitle = useCallback((id: string, title: string) => {
         const action = changeTodolistTitleAC(id, title);
         dispatch(action);
     }, [dispatch])
 
-    const addTodolist = useCallback( (title: string) => {
+    const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
     }, [dispatch]);
@@ -129,7 +128,7 @@ function AppWithRedux() {
                 </Grid>
             </Container>
         </div>
-    );
+    )
 }
 
 export default AppWithRedux;
