@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
@@ -9,39 +9,38 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC
+    removeTodolistAC,
+    setTodolistsAC,
+    ToDoListDomainType,
 } from './state/todolists-reducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
+import {todolistsAPI} from "./api/todolist-api";
+
 
 export type FilterValuesType = "all" | "active" | "completed";
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-/*
-const Fake = React.memo(function() {
-    console.log("FAKE")
-    const arr = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks.count)
-    return <h1>{arr.length}</h1>
-})
-*/
-
 function AppWithRedux() {
-    console.log("App is called")
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch();
+
+
+    const todolists = useSelector<AppRootStateType, Array<ToDoListDomainType>>(state => state.todolists)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+
+    useEffect(() => {
+        todolistsAPI.getTodolists().then((res) => {
+            let todos = res.data
+            dispatch(setTodolistsAC(todos))
+        })
+    })
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         const action = removeTaskAC(id, todolistId);
